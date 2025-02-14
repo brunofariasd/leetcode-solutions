@@ -1,3 +1,5 @@
+//TODO Not complete yet, need to be finished
+
 function threeSum(nums: number[]): number[][] {
   if (nums.length === 3) {
     return nums.reduce((prev, current) => prev + current) === 0 ? [nums] : [];
