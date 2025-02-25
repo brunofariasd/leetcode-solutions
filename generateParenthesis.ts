@@ -1,39 +1,27 @@
-function generateParenthesis(n: number): string[] {
-  const defaultPatterns = {
-    1: ["()"],
-    2: ["(())"],
-    3: ["((()))", "(()())", "(())()", "()(())", "()()()"],
-  };
+//TODO Utilizar backtrack to this problem
 
-  const sAux = "()";
-  const sAuxL = "(";
-  const sAuxr = ")";
-
-  if (defaultPatterns[n]) return defaultPatterns[n];
-
-  const result: string[] = [];
-
-  //First position
-  result.push(sAux.repeat(n));
-
-  for (let i = n; i <= 1; i--) {
-    for (let j = 0; j <= n; j++) {
-      result.push(defaultPatterns[j + 1]);
-    }
+function backtrack(
+  openN: number,
+  closedN: number,
+  n: number,
+  res: string[],
+  stack: string
+): string[] | void {
+  if (openN === closedN && openN === n) {
+    res.push(stack);
+    return;
   }
 
-  //Last position
-  result.push(sAux.repeat(n));
-
-  return result;
+  if (openN < n) {
+    this.backtrack(openN + 1, closedN, n, res, stack + "(");
+  }
+  if (closedN < openN) {
+    this.backtrack(openN, closedN + 1, n, res, stack + ")");
+  }
 }
 
-("()()()()");
-
-("(())()()");
-("()(())()");
-("()()(())");
-
-("(())(())");
-("()((()))");
-"(((())))"[("((()))", "(()())", "(())()", "()(())", "()()()")];
+function generateParenthesis(n: number): string[] {
+  const res = [];
+  this.backtrack(0, 0, n, res, "");
+  return res;
+}
