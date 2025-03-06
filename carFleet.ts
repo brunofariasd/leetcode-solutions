@@ -1,7 +1,7 @@
 function carFleet(target: number, position: number[], speed: number[]): number {
   if (position.length === 1) return 1;
 
-  let count = 0;
+  let count = 1;
   const hashObj = {};
 
   //HashMap
@@ -13,19 +13,13 @@ function carFleet(target: number, position: number[], speed: number[]): number {
     .sort((a, b) => parseInt(b) - parseInt(a))
     .map((key) => parseInt(key));
 
-  for (let i = 0; i < Object.keys(hashObj).length; i++) {
-    const positionA = keys[i];
-    const speedA = hashObj[keys[i]];
+  let previousT = (keys[0] - target) / hashObj[keys[0]];
+  for (let i = 1; i < keys.length; i++) {
+    const currentT = (keys[i] - target) / hashObj[keys[i]];
 
-    const positionB = keys[i + 1];
-    const speedB = keys[i + 1];
-
-    if (positionA - target / speedA >= positionB - target / speedB) {
-      delete hashObj[keys[i + 1]];
+    if (previousT > currentT) {
       count++;
-    } else {
-      delete hashObj[keys[i]];
-      count++;
+      previousT = currentT;
     }
   }
   return count;
