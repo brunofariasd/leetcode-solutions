@@ -3,7 +3,10 @@
  * @param nums
  * @returns
  *
- * Funny question.
+ * Funny question. OBS.: Not best version.
+ *
+ * O(n)
+ * O(n)
  *
  */
 
@@ -16,5 +19,5 @@ function findDuplicate(nums: number[]): number {
     if (auxArr[nums[i]] === 2) return nums[i];
   }
 
-  return 0;
+  return -1;
 }
