@@ -22,10 +22,6 @@ class WordDictionary {
     this.root = new TrieNode();
   }
 
-  getIndex(c: string) {
-    return c.charCodeAt(0) - "a".charCodeAt(0);
-  }
-
   DFS(word: string, currentIdx: number, root: TrieNode) {
     let currNode = root;
 
@@ -33,19 +29,17 @@ class WordDictionary {
       const c = word[idx];
 
       if (c === ".") {
-        for (let i = 0; i < currNode.next.size; i++) {
-          if (currNode !== null && this.DFS(word, idx + 1, currNode)) {
+        for (const child of currNode.next) {
+          if (currNode !== null && this.DFS(word, idx + 1, child[1])) {
             return true;
           }
         }
         return false;
       } else {
-        const ind = this.getIndex(c);
-
-        if (!currNode.next.has(word[ind])) {
+        if (!currNode.next.has(c)) {
           return false;
         }
-        currNode = currNode.next.get(word[ind])!;
+        currNode = currNode.next.get(c)!;
       }
     }
 
@@ -60,8 +54,8 @@ class WordDictionary {
         currNode.next.set(word[i], new TrieNode());
       }
       currNode = currNode.next.get(word[i])!;
-      currNode.endWord = true;
     }
+    currNode.endWord = true;
   }
 
   search(word: string): boolean {
