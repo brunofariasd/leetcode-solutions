@@ -5,7 +5,7 @@
  */
 
 function partition(s: string): string[][] {
-  const res: string[][] = [[]];
+  const res: string[][] = [];
 
   function isPalindrome(left: number, right: number): boolean {
     while (left < right) {
@@ -19,7 +19,7 @@ function partition(s: string): string[][] {
   }
 
   function DFS(start: number, end: number, arr: string[]) {
-    if (start >= s.length) {
+    if (end >= s.length) {
       if (start === end) {
         res.push([...arr]);
       }
